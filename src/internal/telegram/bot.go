@@ -2,7 +2,6 @@ package telegram
 
 import (
 	"fmt"
-	"newssumbot/src/internal/token"
 	"time"
 
 	"gopkg.in/telebot.v4"
@@ -41,18 +40,6 @@ func NewMinimalBot(token string) (Bot, error) {
 	return &m, nil
 }
 
-func Underlying() *telebot.Bot {
-	token, err := token.LoadToken()
-	if err != nil {
-		return nil
-	}
-	pref := telebot.Settings{
-		Token:  token,
-		Poller: &telebot.LongPoller{Timeout: 10 * time.Second},
-	}
-	bot, err := telebot.NewBot(pref)
-	if err != nil {
-		return nil
-	}
-	return bot
+func (m *MinBot) Underlying() *telebot.Bot {
+	return m.tbot
 }
