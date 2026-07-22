@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	newssumbot "newssumbot/src/internal"
+	"newssumbot/src/internal/token"
 	"time"
 
 	"gopkg.in/telebot.v4"
 )
 
 func main() {
-	token, err := newssumbot.LoadToken()
+	token, err := token.LoadToken()
 	if err != nil {
 		fmt.Println(err)
 		return

@@ -1,4 +1,4 @@
-package newssumbot
+package token
 
 import (
 	"fmt"
