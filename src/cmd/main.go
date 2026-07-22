@@ -2,10 +2,8 @@ package main
 
 import (
 	"fmt"
+	"newssumbot/src/internal/telegram"
 	"newssumbot/src/internal/token"
-	"time"
-
-	"gopkg.in/telebot.v4"
 )
 
 func main() {
@@ -14,17 +12,10 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	pref := telebot.Settings{
-		Token:  token,
-		Poller: &telebot.LongPoller{Timeout: 10 * time.Second},
+	m, err := telegram.NewMinimalBot(token)
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
-	bot, _ := telebot.NewBot(pref)
-	bot.Handle("/ping", func(c telebot.Context) error {
-		return c.Send("pong")
-	})
-	bot.Handle("/start", func(c telebot.Context) error {
-		return c.Send("Bot is started and ready for use")
-	})
-	fmt.Println("INFO bot got started, pulling updates")
-	bot.Start()
+	m.Start()
 }
